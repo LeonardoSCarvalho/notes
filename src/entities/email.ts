@@ -2,7 +2,11 @@ import { InvalidEmailError } from "@/entities/errors/invalid-email-error"
 import { Either, left, right } from "@/shared/either"
 
 export class Email {
-  private constructor(public readonly email: string) {}
+  private constructor(private readonly _email: string) {}
+
+  get value(): string {
+    return this._email
+  }
 
   public static create(email: string): Either<InvalidEmailError, Email> {
     if (Email.validate(email)) {
