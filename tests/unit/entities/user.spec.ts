@@ -11,6 +11,6 @@ describe("User domain entity", () => {
   it("Should create user with valid email address", () => {
     const validEmail = "any-email@email.com"
     const user: User = User.create({ email: validEmail }).value as User
-    expect(user.email.email).toEqual(validEmail)
+    expect(user.email.value).toEqual(validEmail)
   })
 })
