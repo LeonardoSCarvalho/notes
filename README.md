@@ -1,3 +1,15 @@
+Tasks
+- add password to user 
+- validate password
+
+
+Use Cases
+- create user
+- create note
+- update note
+- delete note
+- login
+
 ## Features
 
 - ⛑ TypeScript
