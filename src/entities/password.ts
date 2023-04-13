@@ -2,7 +2,9 @@ import { Either, left, right } from "@/shared/either"
 import { InvalidPasswordError } from "./errors/invalid-password-error"
 
 export class Password {
-  constructor(private readonly _value: string) {}
+  constructor(private readonly _value: string) {
+    Object.freeze(this)
+  }
 
   public get value(): string {
     return this._value

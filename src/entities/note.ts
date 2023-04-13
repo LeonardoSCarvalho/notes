@@ -4,7 +4,9 @@ import { Title } from "./title"
 import { User } from "./user"
 
 export class Note {
-  constructor(private readonly _owner: User, private readonly _title: Title) {}
+  constructor(private readonly _owner: User, private readonly _title: Title) {
+    Object.freeze(this)
+  }
 
   get title(): Title {
     return this._title

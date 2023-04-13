@@ -2,7 +2,9 @@ import { Either, left, right } from "@/shared/either"
 import { InvalidTitleError } from "./errors/invalid-title-error"
 
 export class Title {
-  private constructor(public readonly value: string) {}
+  private constructor(public readonly value: string) {
+    Object.freeze(this)
+  }
 
   public static create(title: string): Either<InvalidTitleError, Title> {
     if (Title.validate(title)) {
