@@ -6,7 +6,17 @@ import { Password } from "./password"
 import { UserData } from "./user-data"
 
 export class User {
-  private constructor(public readonly email: Email) {}
+  private constructor(
+    private readonly _email: Email,
+    private readonly _password: Password
+  ) {}
+
+  public get email(): Email {
+    return this._email
+  }
+  get password(): Password {
+    return this._password
+  }
   public static create(
     userData: UserData
   ): Either<InvalidEmailError | InvalidPasswordError, User> {
@@ -19,6 +29,7 @@ export class User {
       return left(new InvalidPasswordError())
     }
     const email = emailOrError.value as Email
-    return right(new User(email))
+    const password = passwordOrError.value as Password
+    return right(new User(email, password))
   }
 }

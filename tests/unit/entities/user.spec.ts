@@ -32,6 +32,9 @@ describe("User domain entity", () => {
       email: validEmail,
       password: validPassword,
     }).value as User
-    expect(user.email.value).toEqual(validEmail)
+    const userEmail = user.email
+    const userPassword = user.password
+    expect(userEmail.value).toEqual(validEmail)
+    expect(userPassword.value).toEqual(validPassword)
   })
 })
