@@ -1,4 +1,6 @@
+import { ExistingUserError } from "@/entities/errors/existing-user-error"
 import { UserData } from "@/entities/user-data"
+import { Either, left, right } from "@/shared/either"
 import { Encoder } from "../ports/encoder"
 import { UserRepository } from "../ports/user-repository"
 
@@ -8,14 +10,20 @@ export class Signup {
     private readonly encoder: Encoder
   ) {}
 
-  public async perform(userSignupRequest: UserData): Promise<UserData> {
+  public async perform(
+    userSignupRequest: UserData
+  ): Promise<Either<ExistingUserError, UserData>> {
     const encodedPassword = await this.encoder.encode(
       userSignupRequest.password
     )
+    const userExists = await this.userRepository.findUserByEmail(
+      userSignupRequest.email
+    )
+    if (userExists) return left(new ExistingUserError())
     this.userRepository.addUser({
       ...userSignupRequest,
       password: encodedPassword,
     })
-    return userSignupRequest
+    return right(userSignupRequest)
   }
 }
