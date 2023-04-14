@@ -9,7 +9,9 @@ export class Signup {
   ) {}
 
   public async perform(userSignupRequest: UserData): Promise<UserData> {
-    const encodedPassword = this.encoder.encode(userSignupRequest.password)
+    const encodedPassword = await this.encoder.encode(
+      userSignupRequest.password
+    )
     this.userRepository.addUser({
       ...userSignupRequest,
       password: encodedPassword,

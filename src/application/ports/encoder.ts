@@ -1,3 +1,3 @@
 export interface Encoder {
-  encode(value: string): string
+  encode(value: string): Promise<string>
 }
