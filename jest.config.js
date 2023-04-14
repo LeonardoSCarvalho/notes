@@ -1,5 +1,5 @@
 module.exports = {
-  roots: ["<rootDir>/tests"],
+  roots: ["<rootDir>/test"],
   collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
   coverageDirectory: "coverage",
   testEnvironment: "node",
@@ -8,6 +8,6 @@ module.exports = {
   },
   moduleNameMapper: {
     "@/(.*)": "<rootDir>/src/$1",
-    "@tests/(.*)": "<rootDir>/tests/$1",
+    "@test/(.*)": "<rootDir>/tests/$1",
   },
 }
