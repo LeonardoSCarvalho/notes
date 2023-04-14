@@ -13,13 +13,13 @@ export class Signup {
   public async perform(
     userSignupRequest: UserData
   ): Promise<Either<ExistingUserError, UserData>> {
-    const encodedPassword = await this.encoder.encode(
-      userSignupRequest.password
-    )
     const userExists = await this.userRepository.findUserByEmail(
       userSignupRequest.email
     )
     if (userExists) return left(new ExistingUserError())
+    const encodedPassword = await this.encoder.encode(
+      userSignupRequest.password
+    )
     this.userRepository.addUser({
       ...userSignupRequest,
       password: encodedPassword,
