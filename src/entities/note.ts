@@ -4,7 +4,11 @@ import { Title } from "./title"
 import { User } from "./user"
 
 export class Note {
-  constructor(private readonly _owner: User, private readonly _title: Title) {
+  constructor(
+    private readonly _owner: User,
+    private readonly _title: Title,
+    private readonly _content: string
+  ) {
     Object.freeze(this)
   }
 
@@ -14,13 +18,17 @@ export class Note {
   get owner(): User {
     return this._owner
   }
+  get content(): string {
+    return this._content
+  }
 
   public static create(
     owner: User,
-    title: string
+    title: string,
+    content: string
   ): Either<InvalidTitleError, Note> {
     const titleOrError = Title.create(title)
     if (titleOrError.isLeft()) return left(titleOrError.value)
-    return right(new Note(owner, titleOrError.value))
+    return right(new Note(owner, titleOrError.value, content))
   }
 }
