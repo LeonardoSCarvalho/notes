@@ -1,5 +1,7 @@
 export type NoteData = {
-  ownerEmail: string
+  id?: string
+  ownerId?: string
+  ownerEmail?: string
   title: string
   content: string
 }

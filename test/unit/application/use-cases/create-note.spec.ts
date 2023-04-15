@@ -9,9 +9,9 @@ describe("Create note use case", () => {
     const validContent = "any_content"
     const validPassword = "123any_password"
     const userRepository = new InMemoryUserRepository([
-      { email: validEmail, password: validPassword },
+      { email: validEmail, password: validPassword, id: "0" },
     ])
-    const noteRepository = new InMemoryNoteRepository()
+    const noteRepository = new InMemoryNoteRepository([])
     const createNote = new CreateNote(noteRepository, userRepository)
     const result = await createNote.perform({
       ownerEmail: validEmail,
@@ -19,6 +19,8 @@ describe("Create note use case", () => {
       content: validContent,
     })
     expect(result).toEqual({
+      id: "0",
+      ownerId: "0",
       ownerEmail: validEmail,
       title: validTitle,
       content: validContent,

@@ -11,7 +11,9 @@ export class CreateNote {
   ) {}
 
   public async perform(request: NoteData): Promise<NoteData> {
-    const owner = await this.userRepository.findUserByEmail(request.ownerEmail)
+    const owner = await this.userRepository.findUserByEmail(
+      request.ownerEmail as string
+    )
     if (!owner) throw new Error("User not found")
     const note = Note.create(
       User.create(owner).value as User,
@@ -22,6 +24,7 @@ export class CreateNote {
       title: note.title.value,
       content: note.content,
       ownerId: owner?.id,
+      ownerEmail: owner?.email,
     })
   }
 }

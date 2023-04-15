@@ -1,15 +1,21 @@
-import { NoteParams, NoteRepository } from "@/application/ports/note-repository"
+import { NoteRepository } from "@/application/ports/note-repository"
 import { NoteData } from "@/entities/note-data"
 
 export class InMemoryNoteRepository implements NoteRepository {
-  private notes: NoteData[] = []
-  async addNote(note: NoteParams): Promise<NoteData> {
-    const newNote = {
-      ownerEmail: "any@mail.com",
-      title: note.title,
-      content: note.content,
-    }
-    this.notes.push(newNote)
-    return newNote
+  constructor(private _notes: NoteData[]) {}
+
+  get notes(): NoteData[] {
+    return this._notes
+  }
+
+  async addNote(note: NoteData): Promise<NoteData> {
+    note.id = this._notes.length.toString()
+    this._notes.push(note)
+    return note
+  }
+
+  async findAllNotesFromUser(userId: string): Promise<NoteData[]> {
+    const notes = this.notes.filter((note) => note.ownerId === userId)
+    return notes
   }
 }
