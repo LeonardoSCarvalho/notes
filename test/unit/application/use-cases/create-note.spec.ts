@@ -1,4 +1,5 @@
 import { CreateNote } from "@/application/use-cases/create-note"
+import { UnregisteredUserError } from "@/entities/errors/invalid-owner-error"
 import { InMemoryNoteRepository } from "../repositories/in-memory-note-repository"
 import { InMemoryUserRepository } from "../repositories/in-memory-user-repository"
 
@@ -18,12 +19,26 @@ describe("Create note use case", () => {
       title: validTitle,
       content: validContent,
     })
-    expect(result).toEqual({
+    expect(result.value).toEqual({
       id: "0",
       ownerId: "0",
       ownerEmail: validEmail,
       title: validTitle,
       content: validContent,
     })
+  })
+  it("Should not create new Note if owner is invalid", async () => {
+    const validEmail = "any@mail.com"
+    const validTitle = "any_title"
+    const validContent = "any_content"
+    const userRepository = new InMemoryUserRepository([])
+    const noteRepository = new InMemoryNoteRepository([])
+    const createNote = new CreateNote(noteRepository, userRepository)
+    const result = await createNote.perform({
+      ownerEmail: validEmail,
+      title: validTitle,
+      content: validContent,
+    })
+    expect(result.value).toEqual(new UnregisteredUserError())
   })
 })
