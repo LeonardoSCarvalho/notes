@@ -31,11 +31,11 @@ export class Signup {
       userSignupRequest.password
     )
 
-    this.userRepository.addUser({
-      ...userSignupRequest,
-      password: encodedPassword,
-    })
-
-    return right(userSignupRequest)
+    return right(
+      await this.userRepository.addUser({
+        ...userSignupRequest,
+        password: encodedPassword,
+      })
+    )
   }
 }
