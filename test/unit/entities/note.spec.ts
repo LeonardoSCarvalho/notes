@@ -8,7 +8,8 @@ describe("Note entity", () => {
       password: "any-password",
     }).value as User
     const validTitle = "any title"
-    const note = Note.create(validOwner, validTitle).value as Note
+    const validContent = "any content"
+    const note = Note.create(validOwner, validTitle, validContent).value as Note
     expect(note.title.value).toEqual(validTitle)
     expect(note.owner).toEqual(validOwner)
   })
