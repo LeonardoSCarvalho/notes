@@ -18,6 +18,7 @@ export class InMemoryUserRepository implements UserRepository {
   }
 
   async addUser(user: UserData): Promise<UserData> {
+    user.id = this.users.length.toString()
     this.users.push(user)
     return user
   }
