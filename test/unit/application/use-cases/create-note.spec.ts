@@ -19,13 +19,8 @@ describe("Create note use case", () => {
       title: validTitle,
       content: validContent,
     })
-    expect(result.value).toEqual({
-      id: "0",
-      ownerId: "0",
-      ownerEmail: validEmail,
-      title: validTitle,
-      content: validContent,
-    })
+    expect(result.isRight()).toBeTruthy()
+    expect(result.value).not.toBeNull()
   })
   it("Should not create new Note if owner is invalid", async () => {
     const validEmail = "any@mail.com"

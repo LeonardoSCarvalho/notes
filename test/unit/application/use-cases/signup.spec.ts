@@ -19,11 +19,7 @@ describe("Signup use case", () => {
     const encoder: Encoder = new FakeEncoder()
     const usecase: Signup = new Signup(userRepository, encoder)
     const userSignupResponse = await usecase.perform(userSignupRequest)
-    expect(userSignupResponse.value).toEqual({
-      email: userSignupRequest.email,
-      id: "0",
-      password: userSignupRequest.password + "ENCRYPTED",
-    })
+    expect(userSignupResponse.isRight()).toBeTruthy()
     expect((await userRepository.findAllUsers()).length).toEqual(1)
     expect(
       (await userRepository.findUserByEmail(validEmail))?.password

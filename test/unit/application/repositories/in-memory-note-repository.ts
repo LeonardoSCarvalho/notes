@@ -1,5 +1,6 @@
 import { NoteRepository } from "@/application/ports/note-repository"
 import { NoteData } from "@/entities/note-data"
+import { randomUUID } from "crypto"
 
 export class InMemoryNoteRepository implements NoteRepository {
   constructor(private _notes: NoteData[]) {}
@@ -9,7 +10,7 @@ export class InMemoryNoteRepository implements NoteRepository {
   }
 
   async addNote(note: NoteData): Promise<NoteData> {
-    note.id = this._notes.length.toString()
+    note.id = randomUUID()
     this._notes.push(note)
     return note
   }
