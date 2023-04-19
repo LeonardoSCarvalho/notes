@@ -5,6 +5,23 @@ import { randomUUID } from "crypto"
 export class InMemoryNoteRepository implements NoteRepository {
   constructor(private _notes: NoteData[]) {}
 
+  async updateTitle(noteId: string, title: string): Promise<boolean> {
+    const note = this.notes.find((note) => note.id === noteId)
+    if (note) {
+      note.title = title
+      return true
+    }
+    return false
+  }
+  async updateContent(noteId: string, content: string): Promise<boolean> {
+    const note = this.notes.find((note) => note.id === noteId)
+    if (note) {
+      note.content = content
+      return true
+    }
+    return false
+  }
+
   get notes(): NoteData[] {
     return this._notes
   }
