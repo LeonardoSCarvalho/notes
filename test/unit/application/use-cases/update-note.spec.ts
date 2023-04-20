@@ -11,6 +11,7 @@ describe("Updated Notes use case", () => {
         title: "Title",
         content: "Content",
         ownerId: "1",
+        ownerEmail: "any@email.com",
       },
     ])
     const userRepository = new InMemoryUserRepository([
@@ -20,6 +21,7 @@ describe("Updated Notes use case", () => {
     const updatedNote: NoteData = {
       title: "New Title",
       content: "New Content",
+      ownerEmail: "any@email.com",
     }
     const result = await updateNote.perform("1", "any@email.com", updatedNote)
     const notes = await noteRepository.findAllNotesFromUser("1")

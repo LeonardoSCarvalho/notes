@@ -8,14 +8,18 @@ describe("Load notes for user", () => {
   const validTitle2 = "any_title2"
   const validContent2 = "any_content2"
   const validUserID = "0"
+  const validUserEmail = "any1@email.com"
+  const validUserEmail2 = "any2@email.com"
   const note1: NoteData = {
     id: "0",
+    ownerEmail: validUserEmail,
     ownerId: validUserID,
     title: validTitle1,
     content: validContent1,
   }
   const note2: NoteData = {
     id: "1",
+    ownerEmail: validUserEmail2,
     ownerId: validUserID,
     title: validTitle2,
     content: validContent2,

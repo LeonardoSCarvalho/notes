@@ -19,11 +19,9 @@ export class CreateNote {
       request.ownerEmail as string
     )
     if (!owner) return left(new UnregisteredUserError())
-    const note = Note.create(
-      User.create(owner).value as User,
-      request.title,
-      request.content
-    ).value as Note
+    const userOwner = User.create(owner).value as User
+    const note = Note.create(userOwner, request.title, request.content)
+      .value as Note
     return right(
       await this.noteRepository.addNote({
         title: note.title.value,
