@@ -21,9 +21,9 @@ describe("Signup use case", () => {
     const userSignupResponse = await usecase.perform(userSignupRequest)
     expect(userSignupResponse.isRight()).toBeTruthy()
     expect((await userRepository.findAllUsers()).length).toEqual(1)
-    expect(
-      (await userRepository.findUserByEmail(validEmail))?.password
-    ).toEqual(validPassword + "ENCRYPTED")
+    expect((await userRepository.findByEmail(validEmail))?.password).toEqual(
+      validPassword + "ENCRYPTED"
+    )
   })
   it("Should not signup if user already exists", async () => {
     const validEmail = "any@email.com"

@@ -14,7 +14,7 @@ export class Signin {
   public async perform(
     signinRequest: UserData
   ): Promise<Either<UserNotExistsError | WrongPasswordError, UserData>> {
-    const user = await this.userRepository.findUserByEmail(signinRequest.email)
+    const user = await this.userRepository.findByEmail(signinRequest.email)
     if (!user) return left(new UserNotExistsError())
     const checkPassword = await this.encoder.compare(
       signinRequest.password,

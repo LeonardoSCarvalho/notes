@@ -15,7 +15,7 @@ export class CreateNote {
   public async perform(
     request: NoteData
   ): Promise<Either<UnregisteredUserError, NoteData>> {
-    const owner = await this.userRepository.findUserByEmail(
+    const owner = await this.userRepository.findByEmail(
       request.ownerEmail as string
     )
     if (!owner) return left(new UnregisteredUserError())

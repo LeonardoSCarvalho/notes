@@ -23,7 +23,7 @@ export class Signup {
   > {
     const userOrError = User.create(userSignupRequest)
     if (userOrError.isLeft()) return left(userOrError.value)
-    const userExists = await this.userRepository.findUserByEmail(
+    const userExists = await this.userRepository.findByEmail(
       userSignupRequest.email
     )
     if (userExists) return left(new ExistingUserError())
