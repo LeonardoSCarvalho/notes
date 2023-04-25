@@ -1,6 +1,7 @@
 import { Encoder } from "@/application/ports/encoder"
 import { UserRepository } from "@/application/ports/user-repository"
 import { Signin } from "@/application/use-cases/signin"
+import { UserNotExistsError } from "@/entities/errors/user-not-exists-error"
 import { FakeEncoder } from "../repositories/fake-encoder"
 import { InMemoryUserRepository } from "../repositories/in-memory-user-repository"
 
@@ -15,8 +16,15 @@ describe("Signin use case", () => {
       email: "any@email.com",
       password: "123any_password",
     })
-    console.log(result)
-
     expect(result.isRight()).toBeTruthy()
+  })
+  it("Should not sign in if the username is incorrect", async () => {
+    const usecase = new Signin(userRepository, encoder)
+    const result = await usecase.perform({
+      email: "any@wrong_email.com",
+      password: "123any_password",
+    })
+    expect(result.isLeft()).toBeTruthy()
+    expect(result.value).toEqual(new UserNotExistsError())
   })
 })
