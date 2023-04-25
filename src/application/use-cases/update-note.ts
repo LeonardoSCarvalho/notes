@@ -28,7 +28,7 @@ export class UpdateNote {
       boolean
     >
   > {
-    const noteExists = await this.noteRepository.findNote(noteId)
+    const noteExists = await this.noteRepository.findById(noteId)
     if (!noteExists) return left(new NoteNotExistsError())
     const user = await this.userRepository.findUserByEmail(ownerEmail)
     if (!user) return left(new UserNotExistsError())

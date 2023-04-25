@@ -26,7 +26,7 @@ export class InMemoryNoteRepository implements NoteRepository {
     return this._notes
   }
 
-  async addNote(note: NoteData): Promise<NoteData> {
+  async add(note: NoteData): Promise<NoteData> {
     note.id = randomUUID()
     this._notes.push(note)
     return note
@@ -37,13 +37,13 @@ export class InMemoryNoteRepository implements NoteRepository {
     return notes
   }
 
-  async findNote(noteId: string): Promise<NoteData | null> {
+  async findById(noteId: string): Promise<NoteData | null> {
     const note = this.notes.find((note) => note.id === noteId) || null
     return note
   }
 
   async remove(noteId: string): Promise<void> {
-    const note = await this.findNote(noteId)
+    const note = await this.findById(noteId)
     if (note) {
       const index = this.notes.indexOf(note)
       this.notes.splice(index, 1)

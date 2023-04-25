@@ -23,7 +23,7 @@ export class CreateNote {
     const note = Note.create(userOwner, request.title, request.content)
       .value as Note
     return right(
-      await this.noteRepository.addNote({
+      await this.noteRepository.add({
         title: note.title.value,
         content: note.content,
         ownerId: owner?.id,
