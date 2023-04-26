@@ -13,6 +13,7 @@ describe("Create note use case", () => {
   const noteRepository = new InMemoryNoteRepository([])
   it("Should create new Note with valid data", async () => {
     const validRequestNote: NoteData = NoteBuilder.aNote().build()
+    validRequestNote.title = "my note2"
     const createNote = new CreateNote(noteRepository, userRepository)
     const result = await createNote.perform(validRequestNote)
     expect(result.isRight()).toBeTruthy()
@@ -39,5 +40,13 @@ describe("Create note use case", () => {
     createNoteRequestWithUnregisteredOwner.ownerEmail = unregisteredEmail
     const result = await usecase.perform(createNoteRequestWithUnregisteredOwner)
     expect(result.value).toEqual(new UnregisteredUserError())
+  })
+  it("Should not create note with invalid title", async () => {
+    const usecase = new CreateNote(noteRepository, userRepository)
+    const validCreateNoteRequest: NoteData = NoteBuilder.aNote().build()
+    await usecase.perform(validCreateNoteRequest)
+    const error: Error = (await usecase.perform(validCreateNoteRequest))
+      .value as Error
+    expect(error).toEqual(new Error("ExistingTitleErrord"))
   })
 })
