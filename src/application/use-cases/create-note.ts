@@ -19,6 +19,11 @@ export class CreateNote {
       request.ownerEmail as string
     )
     if (!owner) return left(new UnregisteredUserError())
+    const notes = await this.noteRepository.findAllNotesFromUser(
+      owner.id as string
+    )
+    const verifyTitle = notes.find((note) => note.title === request.title)
+    if (verifyTitle) return left(new Error("ExistingTitleErrord"))
     const userOwner = User.create(owner).value as User
     const note = Note.create(userOwner, request.title, request.content)
       .value as Note
