@@ -8,11 +8,11 @@ import { NoteBuilder } from "./builders/note-builder"
 import { UserBuilder } from "./builders/user-builder"
 
 describe("Create note use case", () => {
+  const validRegiesterUser: UserData = UserBuilder.aUser().build()
+  const userRepository = new InMemoryUserRepository([validRegiesterUser])
+  const noteRepository = new InMemoryNoteRepository([])
   it("Should create new Note with valid data", async () => {
-    const validRegiesterUser: UserData = UserBuilder.aUser().build()
     const validRequestNote: NoteData = NoteBuilder.aNote().build()
-    const userRepository = new InMemoryUserRepository([validRegiesterUser])
-    const noteRepository = new InMemoryNoteRepository([])
     const createNote = new CreateNote(noteRepository, userRepository)
     const result = await createNote.perform(validRequestNote)
     expect(result.isRight()).toBeTruthy()
@@ -23,14 +23,21 @@ describe("Create note use case", () => {
       .withInvalidEmail()
       .build()
     const validRequestNote: NoteData = NoteBuilder.aNote().build()
-    const userRepository = new InMemoryUserRepository([])
-    const noteRepository = new InMemoryNoteRepository([])
     const createNote = new CreateNote(noteRepository, userRepository)
     const result = await createNote.perform({
       ownerEmail: invalidRegiesterUser.email,
       title: validRequestNote.title,
       content: validRequestNote.content,
     })
+    expect(result.value).toEqual(new UnregisteredUserError())
+  })
+  it("Should not create note with unregistered owner", async () => {
+    const usecase = new CreateNote(noteRepository, userRepository)
+    const unregisteredEmail = "other@mail.com"
+    const createNoteRequestWithUnregisteredOwner: NoteData =
+      NoteBuilder.aNote().build()
+    createNoteRequestWithUnregisteredOwner.ownerEmail = unregisteredEmail
+    const result = await usecase.perform(createNoteRequestWithUnregisteredOwner)
     expect(result.value).toEqual(new UnregisteredUserError())
   })
 })
