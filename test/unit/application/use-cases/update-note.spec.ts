@@ -2,30 +2,27 @@ import { UpdateNote } from "@/application/use-cases/update-note"
 import { NoteData } from "@/entities/note-data"
 import { InMemoryNoteRepository } from "../repositories/in-memory-note-repository"
 import { InMemoryUserRepository } from "../repositories/in-memory-user-repository"
+import { NoteBuilder } from "./builders/note-builder"
 
 describe("Updated Notes use case", () => {
   it("Should update a note", async () => {
-    const noteRepository = new InMemoryNoteRepository([
-      {
-        id: "1",
-        title: "Title",
-        content: "Content",
-        ownerId: "1",
-        ownerEmail: "any@email.com",
-      },
-    ])
+    const aNote = NoteBuilder.aNote().build()
+    aNote.id = "0"
+    const noteRepository = new InMemoryNoteRepository([aNote])
     const userRepository = new InMemoryUserRepository([
-      { id: "1", email: "any@email.com", password: "123any_password" },
+      { email: "any@mail.com", password: "1validpassword", id: "0" },
     ])
     const updateNote = new UpdateNote(noteRepository, userRepository)
     const updatedNote: NoteData = {
       title: "New Title",
       content: "New Content",
-      ownerEmail: "any@email.com",
+      ownerEmail: "any@mail.com",
     }
-    const result = await updateNote.perform("1", "any@email.com", updatedNote)
-    const notes = await noteRepository.findAllNotesFromUser("1")
-    expect(notes).toEqual([{ ...updatedNote, id: "1", ownerId: "1" }])
+    const result = await updateNote.perform("0", "any@mail.com", updatedNote)
+    const notes = await noteRepository.findAllNotesFromUser(
+      aNote.ownerId as string
+    )
+    expect(notes).toEqual([{ ...updatedNote, id: "0", ownerId: "0" }])
     expect(result.value).toBeTruthy()
   })
 })

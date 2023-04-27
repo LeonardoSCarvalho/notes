@@ -20,6 +20,12 @@ export class NoteBuilder {
     return this
   }
 
+  public withDifferentTitleAndId(): NoteBuilder {
+    this.note.title = "other title"
+    this.note.id = "1"
+    return this
+  }
+
   public build(): NoteData {
     return this.note
   }
