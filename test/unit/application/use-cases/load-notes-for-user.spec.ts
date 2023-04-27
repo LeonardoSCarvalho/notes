@@ -17,7 +17,8 @@ describe("Load notes for user", () => {
 
   it("Should fail to load notes for user without notes", async () => {
     const usecase: LoadNotesForUser = new LoadNotesForUser(noteRepository)
-    const notes: NoteData[] = await usecase.perform("1")
+    const nonDeafaultUserId = "1"
+    const notes: NoteData[] = await usecase.perform(nonDeafaultUserId)
     expect(notes.length).toEqual(0)
   })
 })
