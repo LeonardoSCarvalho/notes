@@ -1,7 +1,7 @@
 {
   "name": "project-setup",
   "version": "1.0.0",
-  "description": "",
+  "description": "Core of a simple notepad app developed using clean architecture and TDD",
   "main": "index.js",
   "scripts": {
     "build": "tsc --project tsconfig.build.json && tsc-alias",
