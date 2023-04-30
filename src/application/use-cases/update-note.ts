@@ -32,7 +32,7 @@ export class UpdateNote {
     if (!noteExists) return left(new NoteNotExistsError())
     const user = await this.userRepository.findByEmail(ownerEmail)
     if (!user) return left(new UserNotExistsError())
-    const owner = User.create(user).value as User
+    const owner = User.create(user.email, user.password).value as User
     const noteOrError = Note.create(
       owner,
       changedNoteData.title,

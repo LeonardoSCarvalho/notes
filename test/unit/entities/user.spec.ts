@@ -23,34 +23,25 @@ const makeSut = () => {
 describe("User domain entity", () => {
   it("Should not create user with invalid e-mail address", () => {
     const { sut, invalidEmail, validPassword } = makeSut()
-    const error = sut.create({ email: invalidEmail, password: validPassword })
+    const error = sut.create(invalidEmail, validPassword)
     expect(error).toEqual(left(new InvalidEmailError()))
   })
 
   it("Should not create user with invalid password (less than 6 characters)", () => {
     const { sut, validEmail, invalidPasswordWithTooFewCharacters } = makeSut()
-    const error = sut.create({
-      email: validEmail,
-      password: invalidPasswordWithTooFewCharacters,
-    })
+    const error = sut.create(validEmail, invalidPasswordWithTooFewCharacters)
     expect(error).toEqual(left(new InvalidPasswordError()))
   })
 
   it("Should not create user with invalid password (without numbers)", () => {
     const { sut, validEmail, invalidPasswordWithNoNumbers } = makeSut()
-    const error = sut.create({
-      email: validEmail,
-      password: invalidPasswordWithNoNumbers,
-    })
+    const error = sut.create(validEmail, invalidPasswordWithNoNumbers)
     expect(error).toEqual(left(new InvalidPasswordError()))
   })
 
   it("Should create user with valid email address and password", () => {
     const { sut, validEmail, validPassword } = makeSut()
-    const user: User = sut.create({
-      email: validEmail,
-      password: validPassword,
-    }).value as User
+    const user: User = sut.create(validEmail, validPassword).value as User
     const userEmail = user.email
     const userPassword = user.password
     expect(userEmail.value).toEqual(validEmail)

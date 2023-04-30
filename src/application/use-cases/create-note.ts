@@ -24,7 +24,7 @@ export class CreateNote {
     )
     const verifyTitle = notes.find((note) => note.title === request.title)
     if (verifyTitle) return left(new Error("ExistingTitleErrord"))
-    const userOwner = User.create(owner).value as User
+    const userOwner = User.create(owner.email, owner.password).value as User
     const note = Note.create(userOwner, request.title, request.content)
       .value as Note
     return right(
