@@ -1,11 +1,11 @@
 import { CreateNote } from "@/application/use-cases/create-note"
-import { UnregisteredUserError } from "@/entities/errors/invalid-owner-error"
-import { NoteData } from "@/entities/note-data"
-import { UserData } from "@/entities/user-data"
-import { InMemoryNoteRepository } from "../repositories/in-memory-note-repository"
-import { InMemoryUserRepository } from "../repositories/in-memory-user-repository"
-import { NoteBuilder } from "./builders/note-builder"
-import { UserBuilder } from "./builders/user-builder"
+import { NoteData, UserData } from "@/entities/"
+import { UnregisteredUserError } from "@/entities/errors/"
+import {
+  InMemoryNoteRepository,
+  InMemoryUserRepository,
+} from "../repositories/"
+import { NoteBuilder, UserBuilder } from "./builders/"
 
 describe("Create note use case", () => {
   const validRegiesterUser: UserData = UserBuilder.aUser().build()

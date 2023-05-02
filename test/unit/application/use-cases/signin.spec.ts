@@ -1,11 +1,8 @@
-import { Encoder } from "@/application/ports/encoder"
-import { UserRepository } from "@/application/ports/user-repository"
+import { Encoder, UserRepository } from "@/application/ports/"
 import { Signin } from "@/application/use-cases/signin"
-import { UserNotExistsError } from "@/entities/errors/user-not-exists-error"
-import { WrongPasswordError } from "@/entities/errors/wrong-password-error"
+import { UserNotExistsError, WrongPasswordError } from "@/entities/errors/"
 import { UserData } from "@/entities/user-data"
-import { FakeEncoder } from "../repositories/fake-encoder"
-import { InMemoryUserRepository } from "../repositories/in-memory-user-repository"
+import { FakeEncoder, InMemoryUserRepository } from "../repositories/"
 import { UserBuilder } from "./builders/user-builder"
 
 describe("Signin use case", () => {

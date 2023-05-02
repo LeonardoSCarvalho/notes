@@ -1,12 +1,12 @@
-import { Encoder } from "@/application/ports/encoder"
-import { UserRepository } from "@/application/ports/user-repository"
+import { Encoder, UserRepository } from "@/application/ports/"
 import { Signup } from "@/application/use-cases/signup"
-import { ExistingUserError } from "@/entities/errors/existing-user-error"
-import { InvalidEmailError } from "@/entities/errors/invalid-email-error"
-import { InvalidPasswordError } from "@/entities/errors/invalid-password-error"
+import {
+  ExistingUserError,
+  InvalidEmailError,
+  InvalidPasswordError,
+} from "@/entities/errors/"
 import { UserData } from "@/entities/user-data"
-import { FakeEncoder } from "../repositories/fake-encoder"
-import { InMemoryUserRepository } from "../repositories/in-memory-user-repository"
+import { FakeEncoder, InMemoryUserRepository } from "../repositories/"
 import { UserBuilder } from "./builders/user-builder"
 describe("Signup use case", () => {
   it("Should signup user with valid data", async () => {

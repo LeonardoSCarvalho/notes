@@ -1,7 +1,6 @@
 import { Either, left, right } from "@/shared/either"
 import { Email } from "./email"
-import { InvalidEmailError } from "./errors/invalid-email-error"
-import { InvalidPasswordError } from "./errors/invalid-password-error"
+import { InvalidEmailError, InvalidPasswordError } from "./errors/"
 import { Password } from "./password"
 
 export class User {

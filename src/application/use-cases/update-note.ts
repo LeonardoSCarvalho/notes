@@ -1,13 +1,12 @@
-import { ExistingTitleError } from "@/entities/errors/existing-title-error"
-import { InvalidTitleError } from "@/entities/errors/invalid-title-error"
-import { NoteNotExistsError } from "@/entities/errors/note-not-exists-error"
-import { UserNotExistsError } from "@/entities/errors/user-not-exists-error"
-import { Note } from "@/entities/note"
-import { NoteData } from "@/entities/note-data"
-import { User } from "@/entities/user"
+import { Note, NoteData, User } from "@/entities/"
+import {
+  ExistingTitleError,
+  InvalidTitleError,
+  NoteNotExistsError,
+  UserNotExistsError,
+} from "@/entities/errors/"
 import { Either, left, right } from "@/shared/either"
-import { NoteRepository } from "../ports/note-repository"
-import { UserRepository } from "../ports/user-repository"
+import { NoteRepository, UserRepository } from "../ports/"
 
 export class UpdateNote {
   constructor(

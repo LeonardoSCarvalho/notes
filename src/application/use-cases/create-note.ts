@@ -1,10 +1,7 @@
+import { Note, NoteData, User } from "@/entities/"
 import { UnregisteredUserError } from "@/entities/errors/invalid-owner-error"
-import { Note } from "@/entities/note"
-import { NoteData } from "@/entities/note-data"
-import { User } from "@/entities/user"
 import { Either, left, right } from "@/shared/either"
-import { NoteRepository } from "../ports/note-repository"
-import { UserRepository } from "../ports/user-repository"
+import { NoteRepository, UserRepository } from "../ports/"
 
 export class CreateNote {
   constructor(

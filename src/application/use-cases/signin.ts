@@ -1,9 +1,7 @@
-import { UserNotExistsError } from "@/entities/errors/user-not-exists-error"
-import { WrongPasswordError } from "@/entities/errors/wrong-password-error"
+import { UserNotExistsError, WrongPasswordError } from "@/entities/errors/"
 import { UserData } from "@/entities/user-data"
 import { Either, left, right } from "@/shared/either"
-import { Encoder } from "../ports/encoder"
-import { UserRepository } from "../ports/user-repository"
+import { Encoder, UserRepository } from "../ports/"
 
 export class Signin {
   constructor(

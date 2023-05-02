@@ -1,7 +1,9 @@
 import { UpdateNote } from "@/application/use-cases/update-note"
 import { NoteData } from "@/entities/note-data"
-import { InMemoryNoteRepository } from "../repositories/in-memory-note-repository"
-import { InMemoryUserRepository } from "../repositories/in-memory-user-repository"
+import {
+  InMemoryNoteRepository,
+  InMemoryUserRepository,
+} from "../repositories/"
 import { NoteBuilder } from "./builders/note-builder"
 
 describe("Updated Notes use case", () => {
